@@ -41,6 +41,9 @@ def create_app(config_class=Config):
     from app.routes.sales import sales_bp
     app.register_blueprint(sales_bp)
 
+    from app.routes.reports import reports_bp
+    app.register_blueprint(reports_bp)
+
     @app.route("/")
     def index():
         if not current_user.is_authenticated:

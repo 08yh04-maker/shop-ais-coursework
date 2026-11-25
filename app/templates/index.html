@@ -9,6 +9,8 @@
     <a class="card" href="{{ url_for('products.list_products') }}">Товары</a>
     <a class="card" href="{{ url_for('categories.list_categories') }}">Категории</a>
     <a class="card" href="{{ url_for('sales.list_sales') }}">Продажи</a>
-    <a class="card" href="#">Отчёты <span>скоро</span></a>
+    {% if current_user.is_admin %}
+    <a class="card" href="{{ url_for('reports.index') }}">Отчёты</a>
+{% endif %}
 </div>
 {% endblock %}

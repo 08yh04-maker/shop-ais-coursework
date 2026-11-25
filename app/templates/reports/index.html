@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Отчёты — АИС «ТехноМир»{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <h1>Аналитика и отчёты</h1>
+</div>
+
+<!-- Форма фильтра по датам -->
+<form method="get" class="search-bar" style="max-width: 500px;">
+    <input type="date" name="start" value="{{ start_str }}" class="form-control">
+    <input type="date" name="end" value="{{ end_str }}" class="form-control">
+    <button type="submit" class="btn btn--primary">Показать</button>
+</form>
+
+<!-- Карточки с общей статистикой -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <span class="stat-label">Выручка за период</span>
+        <span class="stat-value">{{ "%.2f"|format(revenue) }} ₽</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Количество чеков</span>
+        <span class="stat-value">{{ sales_count }}</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Средний чек</span>
+        <span class="stat-value">{{ "%.2f"|format(avg_check) }} ₽</span>
+    </div>
+</div>
+
+<div class="reports-grid">
+    <!-- Топ товаров -->
+    <div class="report-block">
+        <h2>Топ-5 товаров</h2>
+        <table class="table">
+            <thead><tr><th>Товар</th><th>Продано (шт)</th><th>Сумма</th></tr></thead>
+            <tbody>
+                {% for name, qty, total in top_products %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ qty }}</td>
+                    <td>{{ "%.2f"|format(total) }} ₽</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="text-muted">Нет данных за период.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Выручка по категориям -->
+    <div class="report-block">
+        <h2>Выручка по категориям</h2>
+        <table class="table">
+            <thead><tr><th>Категория</th><th>Сумма</th></tr></thead>
+            <tbody>
+                {% for name, total in category_stats %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ "%.2f"|format(total) }} ₽</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="2" class="text-muted">Нет данных за период.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Товары с низким остатком -->
+<div class="report-block" style="margin-top: 24px;">
+    <h2>Товары с низким остатком (≤ 5)</h2>
+    <table class="table">
+        <thead><tr><th>Артикул</th><th>Наименование</th><th>Остаток</th></tr></thead>
+        <tbody>
+            {% for p in low_stock %}
+            <tr>
+                <td>{{ p.sku }}</td>
+                <td>{{ p.name }}</td>
+                <td><span class="badge badge--warning">{{ p.stock }} {{ p.unit }}</span></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" class="text-muted">Все товары в достатке.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
