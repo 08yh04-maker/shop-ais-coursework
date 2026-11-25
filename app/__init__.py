@@ -1,6 +1,6 @@
-from flask import Flask
+from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
 
 from app.config import Config
@@ -26,12 +26,14 @@ def create_app(config_class=Config):
     # Импорт моделей нужен, чтобы Alembic их увидел
     from app import models  # noqa: F401
 
-    # Регистрация blueprint'ов (добавим по мере готовности)
+    # Регистрация blueprint'ов
     from app.routes.auth import auth_bp
     app.register_blueprint(auth_bp)
 
     @app.route("/")
     def index():
-        return "АИС «ТехноМир» — каркас работает."
+        if not current_user.is_authenticated:
+            return redirect(url_for("auth.login"))
+        return render_template("index.html")
 
     return app

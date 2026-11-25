@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Вход — АИС «ТехноМир»{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <h1>Вход в систему</h1>
+    <form method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.username.label }}
+            {{ form.username(class="form-control") }}
+            {% for error in form.username.errors %}
+                <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}
+            {% for error in form.password.errors %}
+                <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class="btn btn--primary") }}
+    </form>
+</div>
+{% endblock %}

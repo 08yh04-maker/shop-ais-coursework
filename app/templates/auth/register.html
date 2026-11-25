@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Регистрация — АИС «ТехноМир»{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <h1>Новый пользователь</h1>
+    <form method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        {% for field in [form.username, form.email, form.password, form.password2] %}
+        <div class="form-group">
+            {{ field.label }}
+            {{ field(class="form-control") }}
+            {% for error in field.errors %}
+                <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <div class="form-group">
+            {{ form.role.label }}
+            {{ form.role(class="form-control") }}
+        </div>
+
+        {{ form.submit(class="btn btn--primary") }}
+    </form>
+</div>
+{% endblock %}

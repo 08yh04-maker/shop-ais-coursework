@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Главная — АИС «ТехноМир»{% endblock %}
+
+{% block content %}
+<h1>Добро пожаловать, {{ current_user.username }}!</h1>
+<p>Роль: <strong>{{ "Администратор" if current_user.is_admin else "Кассир" }}</strong></p>
+
+<div class="dashboard">
+    <a class="card" href="#">Товары <span>скоро</span></a>
+    <a class="card" href="#">Категории <span>скоро</span></a>
+    <a class="card" href="#">Продажи <span>скоро</span></a>
+    <a class="card" href="#">Отчёты <span>скоро</span></a>
+</div>
+{% endblock %}

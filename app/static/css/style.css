@@ -79,3 +79,79 @@ body {
     padding: 16px 0;
     font-size: 0.875rem;
 }
+
+/* ===== Формы ===== */
+.auth-card {
+    max-width: 420px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.auth-card h1 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-error {
+    color: #dc2626;
+    font-size: 0.85rem;
+}
+
+/* ===== Кнопки ===== */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn--primary {
+    background: #2563eb;
+    color: #fff;
+}
+
+.btn--primary:hover {
+    background: #1d4ed8;
+}
+
+.btn--danger {
+    background: #dc2626;
+    color: #fff;
+}
+
+.nav-user {
+    color: #9ca3af;
+    margin-left: 20px;
+    font-size: 0.9rem;
+}
