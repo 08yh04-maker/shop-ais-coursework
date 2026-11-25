@@ -206,3 +206,36 @@ body {
 .badge--warning { background: #fef3c7; color: #92400e; }
 
 .text-muted { color: #9ca3af; }
+
+/* ===== Корзина / продажи ===== */
+.qty-input { width: 70px; padding: 6px; border: 1px solid #d1d5db; border-radius: 6px; }
+
+.cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding: 16px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.cart-total { font-size: 1.25rem; }
+.cart-actions { display: flex; gap: 8px; }
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.checkout-form { margin: 0; }
+
+.receipt {
+    max-width: 720px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 24px;
+    border-radius: 10px;
+}

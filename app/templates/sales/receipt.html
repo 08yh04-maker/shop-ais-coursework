@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Чек №{{ sale.id }} — АИС «ТехноМир»{% endblock %}
+
+{% block content %}
+<div class="receipt">
+    <h1>Чек №{{ sale.id }}</h1>
+    <p>Дата: {{ sale.created_at.strftime("%d.%m.%Y %H:%M") }}</p>
+    <p>Продавец: {{ sale.seller.username }}</p>
+    <p>Оплата: {{ "Наличные" if sale.payment_method == "cash" else "Карта" }}</p>
+
+    <table class="table">
+        <thead><tr><th>Товар</th><th>Цена</th><th>Кол-во</th><th>Сумма</th></tr></thead>
+        <tbody>
+            {% for item in sale.items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ "%.2f"|format(item.price) }} ₽</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ "%.2f"|format(item.subtotal) }} ₽</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if sale.discount > 0 %}
+    <p>Скидка: {{ "%.2f"|format(sale.discount) }} ₽</p>
+    {% endif %}
+    <p class="cart-total">Итого: <strong>{{ "%.2f"|format(sale.total) }} ₽</strong></p>
+
+    <a href="{{ url_for('sales.list_sales') }}" class="btn">К списку продаж</a>
+    <a href="{{ url_for('sales.cart') }}" class="btn btn--primary">Новая продажа</a>
+</div>
+{% endblock %}

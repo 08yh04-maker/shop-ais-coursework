@@ -1,3 +1,4 @@
+from flask_wtf import CSRFProtect
 from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
@@ -8,6 +9,7 @@ from app.config import Config
 db = SQLAlchemy()
 login_manager = LoginManager()
 migrate = Migrate()
+csrf = CSRFProtect()
 
 
 def create_app(config_class=Config):
@@ -16,7 +18,9 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
 
     db.init_app(app)
+    csrf.init_app(app)
     migrate.init_app(app, db)
+
 
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
@@ -33,6 +37,9 @@ def create_app(config_class=Config):
     from app.routes.products import products_bp, categories_bp
     app.register_blueprint(products_bp)
     app.register_blueprint(categories_bp)
+
+    from app.routes.sales import sales_bp
+    app.register_blueprint(sales_bp)
 
     @app.route("/")
     def index():

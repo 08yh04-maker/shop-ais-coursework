@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Оформление — АИС «ТехноМир»{% endblock %}
+
+{% block content %}
+<h1>Оформление продажи</h1>
+
+<div class="checkout-grid">
+    <div class="checkout-summary">
+        <table class="table">
+            <thead><tr><th>Товар</th><th>Кол-во</th><th>Сумма</th></tr></thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ "%.2f"|format(item.subtotal) }} ₽</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p class="cart-total">Сумма: <strong>{{ "%.2f"|format(total) }} ₽</strong></p>
+    </div>
+
+    <div class="auth-card checkout-form">
+        <h2>Оплата</h2>
+        <form method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.payment_method.label }}
+                {{ form.payment_method(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.discount.label }}
+                {{ form.discount(class="form-control") }}
+                {% for error in form.discount.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+            </div>
+            {{ form.submit(class="btn btn--primary") }}
+        </form>
+    </div>
+</div>
+{% endblock %}

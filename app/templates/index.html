@@ -8,7 +8,7 @@
 <div class="dashboard">
     <a class="card" href="{{ url_for('products.list_products') }}">Товары</a>
     <a class="card" href="{{ url_for('categories.list_categories') }}">Категории</a>
-    <a class="card" href="#">Продажи <span>скоро</span></a>
+    <a class="card" href="{{ url_for('sales.list_sales') }}">Продажи</a>
     <a class="card" href="#">Отчёты <span>скоро</span></a>
 </div>
 {% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Продажи — АИС «ТехноМир»{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <h1>Продажи</h1>
+    <a href="{{ url_for('sales.cart') }}" class="btn btn--primary">+ Новая продажа</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr><th>№</th><th>Дата</th><th>Продавец</th><th>Позиций</th><th>Оплата</th><th>Итого</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for s in sales %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
+            <td>{{ s.seller.username }}</td>
+            <td>{{ s.items|length }}</td>
+            <td>{{ "Наличные" if s.payment_method == "cash" else "Карта" }}</td>
+            <td>{{ "%.2f"|format(s.total) }} ₽</td>
+            <td><a href="{{ url_for('sales.receipt', sale_id=s.id) }}" class="btn btn--sm">Чек</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="text-muted">Продаж пока нет.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

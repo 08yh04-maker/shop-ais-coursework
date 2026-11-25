@@ -66,3 +66,19 @@ class ProductForm(FlaskForm):
         product = Product.query.filter_by(sku=sku.data).first()
         if product and getattr(self, "_product_id", None) != product.id:
             raise ValidationError("Товар с таким артикулом уже существует.")
+class AddToCartForm(FlaskForm):
+    """Добавление товара в корзину."""
+    product_id = IntegerField("Товар", validators=[DataRequired()])
+    quantity = IntegerField("Количество", validators=[DataRequired(), NumberRange(min=1, max=9999)], default=1)
+    submit = SubmitField("Добавить")
+
+
+class CheckoutForm(FlaskForm):
+    """Оформление продажи."""
+    payment_method = SelectField(
+        "Способ оплаты",
+        choices=[("cash", "Наличные"), ("card", "Карта")],
+        validators=[DataRequired()]
+    )
+    discount = DecimalField("Скидка, ₽", places=2, default=0, validators=[NumberRange(min=0)])
+    submit = SubmitField("Оформить продажу")
