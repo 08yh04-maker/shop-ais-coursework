@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Категории — АИС «ТехноМир»{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <h1>Категории</h1>
+    {% if current_user.is_admin %}
+        <a href="{{ url_for('categories.create_category') }}" class="btn btn--primary">+ Добавить</a>
+    {% endif %}
+</div>
+
+<table class="table">
+    <thead>
+        <tr><th>Название</th><th>Описание</th><th>Товаров</th><th>Действия</th></tr>
+    </thead>
+    <tbody>
+        {% for c in categories %}
+        <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.description or "—" }}</td>
+            <td>{{ c.products.count() }}</td>
+            <td class="actions">
+                {% if current_user.is_admin %}
+                    <a href="{{ url_for('categories.edit_category', category_id=c.id) }}" class="btn btn--sm">Изменить</a>
+                    <form method="post" action="{{ url_for('categories.delete_category', category_id=c.id) }}" class="inline-form" onsubmit="return confirm('Удалить категорию?')">
+                        <button type="submit" class="btn btn--sm btn--danger">Удалить</button>
+                    </form>
+                {% else %}
+                    <span class="text-muted">—</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="text-muted">Категорий пока нет.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

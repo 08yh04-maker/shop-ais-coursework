@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — АИС «ТехноМир»{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <h1>{{ title }}</h1>
+    <form method="post" novalidate>
+        {{ form.hidden_tag() }}
+        {% for field in [form.name, form.description] %}
+        <div class="form-group">
+            {{ field.label }}
+            {{ field(class="form-control") }}
+            {% for error in field.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+        </div>
+        {% endfor %}
+        {{ form.submit(class="btn btn--primary") }}
+        <a href="{{ url_for('categories.list_categories') }}" class="btn">Отмена</a>
+    </form>
+</div>
+{% endblock %}

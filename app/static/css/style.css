@@ -155,3 +155,54 @@ body {
     margin-left: 20px;
     font-size: 0.9rem;
 }
+
+/* ===== Страницы ===== */
+.page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.search-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.table th, .table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table th { background: #f9fafb; font-size: 0.85rem; text-transform: uppercase; color: #6b7280; }
+.table tr:last-child td { border-bottom: none; }
+
+.actions { display: flex; gap: 8px; align-items: center; }
+.inline-form { display: inline; }
+
+.btn--sm { padding: 6px 12px; font-size: 0.85rem; }
+.btn--danger { background: #dc2626; color: #fff; }
+.btn--danger:hover { background: #b91c1c; }
+
+.badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; margin-left: 6px; }
+.badge--warning { background: #fef3c7; color: #92400e; }
+
+.text-muted { color: #9ca3af; }

@@ -37,3 +37,32 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError("Этот email уже используется.")
+
+from wtforms import DecimalField, IntegerField, TextAreaField
+from wtforms.validators import NumberRange
+
+
+class CategoryForm(FlaskForm):
+    """Форма категории."""
+    name = StringField("Название", validators=[DataRequired(), Length(2, 100)])
+    description = TextAreaField("Описание")
+    submit = SubmitField("Сохранить")
+
+
+class ProductForm(FlaskForm):
+    """Форма товара."""
+    sku = StringField("Артикул", validators=[DataRequired(), Length(1, 32)])
+    name = StringField("Наименование", validators=[DataRequired(), Length(2, 200)])
+    category_id = SelectField("Категория", coerce=int, validators=[DataRequired()])
+    price = DecimalField("Цена, ₽", places=2, validators=[DataRequired(), NumberRange(min=0)])
+    stock = IntegerField("Остаток", validators=[DataRequired(), NumberRange(min=0)])
+    unit = StringField("Ед. изм.", validators=[DataRequired(), Length(1, 16)], default="шт")
+    description = TextAreaField("Описание")
+    submit = SubmitField("Сохранить")
+
+    def validate_sku(self, sku):
+        # Проверка уникальности артикула — при редактировании пропускаем текущий товар
+        from app.models import Product
+        product = Product.query.filter_by(sku=sku.data).first()
+        if product and getattr(self, "_product_id", None) != product.id:
+            raise ValidationError("Товар с таким артикулом уже существует.")
