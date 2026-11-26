@@ -25,4 +25,38 @@ flask db upgrade
 6. Открыть http://127.0.0.1:5000
 
 ## Структура
-(будет дополняться)
+shop-ais-coursework/
+├── app/
+│   ├── __init__.py            # Инициализация Flask, БД, LoginManager, CSRF
+│   ├── config.py              # Настройки (строка подключения к PostgreSQL)
+│   ├── models.py              # Модели БД (User, Category, Product, Sale, SaleItem)
+│   ├── forms.py               # Формы WTForms (Валидация, Загрузка фото)
+│   ├── utils.py               # Утилиты (сохранение/удаление картинок)
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   ├── auth.py            # Вход, выход, регистрация (роли)
+│   │   ├── products.py        # CRUD товаров и категорий
+│   │   ├── sales.py           # Корзина, оформление чека, списание остатков
+│   │   └── reports.py         # Отчеты (выручка, топ-товаров)
+│   ├── templates/             # HTML-шаблоны (Jinja2)
+│   │   ├── base.html          # Базовый шаблон (шапка, подвал, flash-сообщения)
+│   │   ├── index.html         # Главная страница (Дашборд с плитками)
+│   │   ├── auth/              # Шаблоны входа и регистрации
+│   │   ├── products/          # Шаблоны списка и формы товаров
+│   │   ├── categories/        # Шаблоны списка и формы категорий
+│   │   ├── sales/             # Шаблоны корзины, оформления, чека
+│   │   └── reports/           # Шаблон отчетов
+│   └── static/                # Статика
+│       ├── css/style.css      # Все стили
+│       ├── js/main.js         # Скрипт автоскрытия уведомлений
+│       └── uploads/           # Папка для загруженных фото товаров
+├── migrations/                # Файлы миграций Alembic (версии БД)
+├── .env                       # Секреты (НЕ В ГИТЕ)
+├── .env.example               # Пример настроек
+├── .gitignore                 # Исключения для Git (venv, .env, uploads)
+├── create_admin.py            # Скрипт создания админа (admin / admin123)
+├── seed_data.py               # Скрипт заполнения БД тестовыми товарами
+├── requirements.txt           # Список зависимостей (pip install -r ...)
+├── docker-compose.yml         # Конфиг для запуска PostgreSQL в Docker (для ноута)
+├── README.md                  # Инструкция по запуску
+└── run.py                     # Точка входа (создает app)
