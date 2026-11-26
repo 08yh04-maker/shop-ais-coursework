@@ -1,10 +1,4 @@
 {% extends "base.html" %}
-<td>
-    {% if item.product.image_filename %}
-        <img src="{{ url_for('static', filename='uploads/' + item.product.image_filename) }}" class="product-thumb-sm">
-    {% endif %}
-    {{ item.product.name }} <span class="text-muted">({{ item.product.sku }})</span>
-</td>
 {% block title %}Корзина — АИС «ТехноМир»{% endblock %}
 
 {% block content %}
@@ -14,42 +8,21 @@
 </div>
 
 {% if items %}
-<table class="table">
-    <thead>
-        <tr><th>Товар</th><th>Цена</th><th>Кол-во</th><th>Сумма</th><th></th></tr>
-    </thead>
-    <tbody>
-        {% for item in items %}
-        <tr>
-            <td>{{ item.product.name }} <span class="text-muted">({{ item.product.sku }})</span></td>
-            <td>{{ "%.2f"|format(item.product.price) }} ₽</td>
-            <td>
-                <form method="post" action="{{ url_for('sales.update_cart', product_id=item.product.id) }}" class="inline-form">
-                    <input type="number" name="quantity" value="{{ item.quantity }}" min="0" max="{{ item.product.stock }}" class="qty-input">
-                    <button type="submit" class="btn btn--sm">OK</button>
-                </form>
-            </td>
-            <td>{{ "%.2f"|format(item.subtotal) }} ₽</td>
-            <td>
-                <form method="post" action="{{ url_for('sales.remove_from_cart', product_id=item.product.id) }}" class="inline-form">
-                    <button type="submit" class="btn btn--sm btn--danger">Удалить</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <!-- ТУТ ТВОЙ КОД ТАБЛИЦЫ -->
+    <table class="table">
+        <!-- ... вся твоя таблица ... -->
+    </table>
 
-<div class="cart-footer">
-    <div class="cart-total">Итого: <strong>{{ "%.2f"|format(total) }} ₽</strong></div>
-    <div class="cart-actions">
-        <form method="post" action="{{ url_for('sales.clear_cart') }}" class="inline-form">
-            <button type="submit" class="btn">Очистить</button>
-        </form>
-        <a href="{{ url_for('sales.checkout') }}" class="btn btn--primary">Оформить</a>
+    <div class="cart-footer">
+        <div class="cart-total">Итого: <strong>{{ "%.2f"|format(total) }} ₽</strong></div>
+        <div class="cart-actions">
+            <form method="post" action="{{ url_for('sales.clear_cart') }}" class="inline-form">
+                <button type="submit" class="btn">Очистить</button>
+            </form>
+            <a href="{{ url_for('sales.checkout') }}" class="btn btn--primary">Оформить</a>
+        </div>
     </div>
-</div>
 {% else %}
-<p class="text-muted">Корзина пуста. Добавьте товары из <a href="{{ url_for('products.list_products') }}">каталога</a>.</p>
+    <p class="text-muted">Корзина пуста. Добавьте товары из <a href="{{ url_for('products.list_products') }}">каталога</a>.</p>
 {% endif %}
 {% endblock %}
