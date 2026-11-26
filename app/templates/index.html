@@ -2,15 +2,36 @@
 {% block title %}Главная — АИС «ТехноМир»{% endblock %}
 
 {% block content %}
-<h1>Добро пожаловать, {{ current_user.username }}!</h1>
-<p>Роль: <strong>{{ "Администратор" if current_user.is_admin else "Кассир" }}</strong></p>
+<div class="dashboard-header">
+    <h1>Добро пожаловать, {{ current_user.username }}!</h1>
+    <p class="text-muted">Роль: <strong>{{ "Администратор" if current_user.is_admin else "Кассир" }}</strong></p>
+</div>
 
 <div class="dashboard">
-    <a class="card" href="{{ url_for('products.list_products') }}">Товары</a>
-    <a class="card" href="{{ url_for('categories.list_categories') }}">Категории</a>
-    <a class="card" href="{{ url_for('sales.list_sales') }}">Продажи</a>
+    <a class="card" href="{{ url_for('products.list_products') }}">
+        <div class="card-icon">📦</div>
+        <div class="card-title">Товары</div>
+        <div class="card-desc">Управление каталогом и остатками</div>
+    </a>
+
+    <a class="card" href="{{ url_for('categories.list_categories') }}">
+        <div class="card-icon">🗂️</div>
+        <div class="card-title">Категории</div>
+        <div class="card-desc">Справочник категорий товаров</div>
+    </a>
+
+    <a class="card" href="{{ url_for('sales.list_sales') }}">
+        <div class="card-icon">🛒</div>
+        <div class="card-title">Продажи</div>
+        <div class="card-desc">Оформление чеков и история</div>
+    </a>
+
     {% if current_user.is_admin %}
-    <a class="card" href="{{ url_for('reports.index') }}">Отчёты</a>
-{% endif %}
+    <a class="card" href="{{ url_for('reports.index') }}">
+        <div class="card-icon">📊</div>
+        <div class="card-title">Отчёты</div>
+        <div class="card-desc">Аналитика выручки и топ товаров</div>
+    </a>
+    {% endif %}
 </div>
 {% endblock %}
