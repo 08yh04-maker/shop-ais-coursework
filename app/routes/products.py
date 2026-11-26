@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from app import db
 from app.forms import CategoryForm, ProductForm
 from app.models import Category, Product
+from app.utils import save_image, delete_image
 
 products_bp = Blueprint("products", __name__, url_prefix="/products")
 categories_bp = Blueprint("categories", __name__, url_prefix="/categories")
@@ -95,6 +96,8 @@ def create_product():
             unit=form.unit.data,
             description=form.description.data,
         )
+        if form.image.data:
+            product.image_filename = save_image(form.image.data)
         db.session.add(product)
         db.session.commit()
         flash("Товар добавлен.", "success")
@@ -119,6 +122,9 @@ def edit_product(product_id):
         product.stock = form.stock.data
         product.unit = form.unit.data
         product.description = form.description.data
+        if form.image.data:
+            delete_image(product.image_filename)
+            product.image_filename = save_image(form.image.data)
         db.session.commit()
         flash("Товар обновлён.", "success")
         return redirect(url_for("products.list_products"))
@@ -134,6 +140,7 @@ def delete_product(product_id):
     if product.sale_items.count() > 0:
         flash("Нельзя удалить товар, который уже продавался.", "danger")
         return redirect(url_for("products.list_products"))
+    delete_image(product.image_filename)
     db.session.delete(product)
     db.session.commit()
     flash("Товар удалён.", "info")

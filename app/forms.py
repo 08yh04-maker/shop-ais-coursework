@@ -1,3 +1,4 @@
+from flask_wtf.file import FileField, FileAllowed
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
@@ -58,6 +59,10 @@ class ProductForm(FlaskForm):
     stock = IntegerField("Остаток", validators=[DataRequired(), NumberRange(min=0)])
     unit = StringField("Ед. изм.", validators=[DataRequired(), Length(1, 16)], default="шт")
     description = TextAreaField("Описание")
+    image = FileField(
+        "Фото товара",
+        validators=[FileAllowed(["jpg", "jpeg", "png", "webp"], "Только изображения (JPG, PNG, WEBP)!")]
+    )
     submit = SubmitField("Сохранить")
 
     def validate_sku(self, sku):

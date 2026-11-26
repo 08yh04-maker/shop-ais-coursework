@@ -64,6 +64,7 @@ class Product(db.Model):
     stock = db.Column(db.Integer, nullable=False, default=0)
     unit = db.Column(db.String(16), nullable=False, default="шт")
     description = db.Column(db.Text)
+    image_filename = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     category = db.relationship("Category", back_populates="products")

@@ -17,6 +17,7 @@
 <table class="table">
     <thead>
         <tr>
+	    <th>Фото</th>
             <th>Артикул</th>
             <th>Наименование</th>
             <th>Категория</th>
@@ -28,7 +29,14 @@
    <tbody>
         {% for p in products %}
         <tr>
-            <td>{{ p.sku }}</td>
+            <td>
+    {% if p.image_filename %}
+        <img src="{{ url_for('static', filename='uploads/' + p.image_filename) }}" alt="{{ p.name }}" class="product-thumb">
+    {% else %}
+        <div class="product-thumb product-thumb--empty">Нет фото</div>
+    {% endif %}
+</td>
+	    <td>{{ p.sku }}</td>
             <td>{{ p.name }}</td>
             <td>{{ p.category.name }}</td>
             <td>{{ "%.2f"|format(p.price) }} ₽</td>
@@ -45,7 +53,7 @@
                 </form>
 
                 {% if current_user.is_admin %}
-                    <a href="{{ url_for('products.edit_product', product_id=p.id) }}" class="btn btn--sm">Изменить</a>
+                    <a href="{{ url_for('products.edit_product', product_id=p.id) }}" class="btn btn--sm" style="background: #e5e7eb; color: #374151;">Изменить</a>
                     <form method="post" action="{{ url_for('products.delete_product', product_id=p.id) }}" class="inline-form" onsubmit="return confirm('Удалить товар?')">
                         <button type="submit" class="btn btn--sm btn--danger">Удалить</button>
                     </form>

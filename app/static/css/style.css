@@ -270,3 +270,103 @@ body {
     font-size: 1.1rem;
     margin-bottom: 12px;
 }
+
+/* ===== Фото товаров ===== */
+.product-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #f3f4f6;
+    display: block;
+}
+
+.product-thumb--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: #9ca3af;
+    text-align: center;
+}
+
+.product-thumb-sm {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* Исправление таблицы товаров */
+.table th, .table td {
+    vertical-align: middle; /* выравниваем контент по центру по вертикали */
+    white-space: nowrap;    /* запрещаем переносить текст (например, цены) */
+}
+
+/* Разрешаем перенос длинных названий товаров, чтобы они не растягивали таблицу */
+.table td:nth-child(3) { 
+    white-space: normal; 
+    min-width: 200px; 
+}
+
+/* Приводим кнопки в порядок */
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start; /* прижимаем кнопки влево, а не вправо */
+}
+
+.actions .btn {
+    white-space: nowrap; /* текст в кнопках ("В корзину") не будет переноситься на две строки */
+}
+
+/* ===== Таблицы ===== */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    table-layout: fixed; /* Жёстко фиксируем ширину колонок */
+}
+
+.table th, .table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle; /* Выравнивание по центру по вертикали */
+    white-space: nowrap;    /* Запрет переноса строк (для цен и артикулов) */
+}
+
+/* Разрешаем перенос ТОЛЬКО для колонки с наименованием товара */
+.table td:nth-child(3) {
+    white-space: normal;
+    word-break: break-word;
+}
+
+.table th {
+    background: #f9fafb;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===== Кнопки действий ===== */
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap; /* Если кнопки не влезут, они перенесутся аккуратно */
+}
+
+.actions .btn {
+    white-space: nowrap;
+}

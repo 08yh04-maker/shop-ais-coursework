@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+<td>
+    {% if item.product.image_filename %}
+        <img src="{{ url_for('static', filename='uploads/' + item.product.image_filename) }}" class="product-thumb-sm">
+    {% endif %}
+    {{ item.product.name }} <span class="text-muted">({{ item.product.sku }})</span>
+</td>
 {% block title %}Корзина — АИС «ТехноМир»{% endblock %}
 
 {% block content %}

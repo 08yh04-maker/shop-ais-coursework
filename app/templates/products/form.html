@@ -4,17 +4,21 @@
 {% block content %}
 <div class="auth-card">
     <h1>{{ title }}</h1>
-    <form method="post" novalidate>
+    <form method="post" enctype="multipart/form-data" novalidate>
         {{ form.hidden_tag() }}
-        {% for field in [form.sku, form.name, form.category_id, form.price, form.stock, form.unit, form.description] %}
+        
+        {% for field in [form.sku, form.name, form.category_id, form.price, form.stock, form.unit, form.description, form.image] %}
         <div class="form-group">
             {{ field.label }}
             {{ field(class="form-control") }}
             {% for error in field.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
         </div>
         {% endfor %}
-        {{ form.submit(class="btn btn--primary") }}
-        <a href="{{ url_for('products.list_products') }}" class="btn">Отмена</a>
+        
+        <div style="margin-top: 20px;">
+            {{ form.submit(class="btn btn--primary") }}
+            <a href="{{ url_for('products.list_products') }}" class="btn">Отмена</a>
+        </div>
     </form>
 </div>
 {% endblock %}
